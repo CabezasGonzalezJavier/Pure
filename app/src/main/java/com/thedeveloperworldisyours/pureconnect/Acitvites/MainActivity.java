@@ -122,6 +122,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
     public void insertArtistsAndAlbums(Pure pure) {
         mArtistList = pure.getArtists();
+        builtList();
         for (int i = 0; i < mArtistList.size(); i++) {
             mArtistDAO.create(mArtistList.get(i));
         }
@@ -131,7 +132,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         }
         mProgress.cancel();
 
-        builtList();
     }
 
     /**

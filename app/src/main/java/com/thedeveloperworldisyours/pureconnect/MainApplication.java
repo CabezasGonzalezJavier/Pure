@@ -21,8 +21,6 @@ public class MainApplication extends Application {
         initializeTypefaces();
         if (SimpleDatabaseUtil.isFirstApplicationStart(this)) {
             SQLiteSimple databaseSimple = new SQLiteSimple(this, Constants.DATABASE_NAME);
-            databaseSimple.create(Album.class);
-            databaseSimple.create(Artist.class);
         }
     }
     public static class Fonts
