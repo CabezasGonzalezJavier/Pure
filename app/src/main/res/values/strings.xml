@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PureConnect</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="no_connection">Error connection. You must check your connection.</string>
+    <string name="title_activity_detail_acitivity">DetailAcitivity</string>
+</resources>
