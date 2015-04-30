@@ -1,76 +1,79 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/AppTheme.Relative"
+    android:id="@+id/activity_detail_ScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context="com.thedeveloperworldisyours.pureconnect.Acitvites.DetailAcitivity">
 
     <RelativeLayout
-        android:id="@+id/activity_detail_relative_layout"
+
         style="@style/AppTheme.Relative"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
-
-        <ImageView
-            android:id="@+id/activity_detail_icon"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="5dp"
-            android:contentDescription="TODO"
-            android:scaleType="centerCrop" />
+        android:layout_height="match_parent">
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/activity_detail_relative_layout"
+            style="@style/AppTheme.Relative"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@+id/activity_detail_icon"
-            android:orientation="vertical">
+            android:background="@color/white">
 
-            <TextView
-                android:id="@+id/activity_detail_firstLine"
+            <ImageView
+                android:id="@+id/activity_detail_icon"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="5dp"
+                android:contentDescription="TODO"
+                android:scaleType="centerCrop" />
+
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="26sp" />
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/activity_detail_icon"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/activity_detail_secondLine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp" />
-        </LinearLayout>
+                <com.thedeveloperworldisyours.pureconnect.view.CustomTextView
+                    android:id="@+id/activity_detail_firstLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="26sp" />
 
-    </RelativeLayout>
+                <com.thedeveloperworldisyours.pureconnect.view.CustomTextView
+                    android:id="@+id/activity_detail_secondLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/activity_detail_ScrollView"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="5dp"
-        android:paddingLeft="5dp"
-        android:background="@color/white"
-        android:layout_below="@+id/activity_detail_relative_layout"
-        android:fillViewport="true">
+        </RelativeLayout>
 
-        <TextView
+
+        <com.thedeveloperworldisyours.pureconnect.view.CustomTextView
             android:id="@+id/activity_detail_description"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/activity_detail_relative_layout"
+            android:layout_marginTop="5dp"
+            android:background="@color/white"
+            android:paddingLeft="5dp"
             android:textSize="18sp" />
-    </ScrollView>
 
-    <ListView
-        android:id="@+id/activity_detail_listView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/activity_detail_ScrollView"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="5dp"
-        android:background="@color/gray" />
 
-</RelativeLayout>
+        <ListView
+            android:id="@+id/activity_detail_listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/activity_detail_description"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            android:background="@color/gray" />
+    </RelativeLayout>
+</ScrollView>

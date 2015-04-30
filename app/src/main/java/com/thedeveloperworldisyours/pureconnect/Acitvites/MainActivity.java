@@ -48,15 +48,18 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         getData();
     }
 
-    public void getInfoAlbumFromDB() {
-        List<Album> listAlbum = new ArrayList<Album>();
-        listAlbum = mAlbumDAO.readAllAsc();
-    }
+    /**
+     * This method get artists from database
+     */
 
     public void getInfoArtistFromDB() {
         List<Artist> artistList = new ArrayList<Artist>();
         artistList = mArtistDAO.readAllAsc();
     }
+
+    /**
+     * this method gets data from database or from internet
+     */
 
     public void getData() {
         if (exitsDB()) {
@@ -71,6 +74,11 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         }
     }
 
+    /**
+     * this method check if there is data
+     * @return
+     */
+
     public boolean exitsDB() {
 
         int album = mAlbumDAO.getCount();
@@ -78,11 +86,18 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         return album > 0 && artist > 0;
     }
 
+    /**
+     * this method clears the data from database when we get info from internet
+     */
+
     public void clearDB() {
         mAlbumDAO.deleteAll();
         mArtistDAO.deleteAll();
     }
 
+    /**
+     * this methods calls REST API
+     */
     public void getPure() {
         Callback<Pure> callback = new Callback<Pure>() {
             @Override
@@ -94,10 +109,16 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
             @Override
             public void failure(RetrofitError error) {
                 mProgress.cancel();
+                Toast.makeText(MainActivity.this, R.string.error_data,Toast.LENGTH_SHORT).show();
             }
         };
         Client.initRestAdapter().getPure(callback);
     }
+
+    /**
+     * this method insert artists and albums in database
+     * @param pure
+     */
 
     public void insertArtistsAndAlbums(Pure pure) {
         mArtistList = pure.getArtists();
@@ -112,6 +133,10 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         builtList();
     }
+
+    /**
+     * this method builds listview
+     */
 
     public void builtList() {
         mListView.setAdapter(new ListViewAdapter(MainActivity.this, 0, mArtistList));

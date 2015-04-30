@@ -5,4 +5,5 @@
     <string name="action_refresh">Refresh</string>
     <string name="no_connection">Error connection. You must check your connection.</string>
     <string name="title_activity_detail_acitivity">DetailAcitivity</string>
+    <string name="error_data">Error to get the data. Please You must try it again</string>
 </resources>
