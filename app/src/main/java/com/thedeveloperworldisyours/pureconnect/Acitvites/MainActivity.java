@@ -123,15 +123,27 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     public void insertArtistsAndAlbums(Pure pure) {
         mArtistList = pure.getArtists();
         builtList();
-        for (int i = 0; i < mArtistList.size(); i++) {
-            mArtistDAO.create(mArtistList.get(i));
-        }
-        List<Album> albumList = pure.getAlbums();
-        for (int i = 0; i < albumList.size(); i++) {
-            mAlbumDAO.create(albumList.get(i));
-        }
+        thread(pure);
         mProgress.cancel();
 
+    }
+    public void thread(Pure pure){
+        new Thread(new Runnable() {
+            public void run(Pure pure) {
+                for (int i = 0; i < mArtistList.size(); i++) {
+                    mArtistDAO.create(mArtistList.get(i));
+                }
+                List<Album> albumList = pure.getAlbums();
+                for (int i = 0; i < albumList.size(); i++) {
+                    mAlbumDAO.create(albumList.get(i));
+                }
+            }
+
+            @Override
+            public void run() {
+
+            }
+        }).start();
     }
 
     /**
