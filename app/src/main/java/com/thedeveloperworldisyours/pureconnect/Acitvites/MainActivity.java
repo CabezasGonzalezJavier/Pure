@@ -2,6 +2,7 @@ package com.thedeveloperworldisyours.pureconnect.Acitvites;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,18 +34,16 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     private ArtistDAO mArtistDAO;
     private ProgressDialog mProgress;
     private List<Artist> mArtistList;
+    private List<Album> mAlbums;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mListView = (ListView) findViewById(R.id.activity_main_listView);
-
         mAlbumDAO = new AlbumDAO(this);
         mArtistDAO = new ArtistDAO(this);
         mProgress = new ProgressDialog(this, R.style.Transparent);
-        mProgress.show();
         getData();
     }
 
@@ -119,37 +118,18 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
      * this method insert artists and albums in database
      * @param pure
      */
-
     public void insertArtistsAndAlbums(Pure pure) {
         mArtistList = pure.getArtists();
+        mAlbums = pure.getAlbums();
         builtList();
-        thread(pure);
-        mProgress.cancel();
+        CustomAsyncTask asyncTask = new CustomAsyncTask();
+        asyncTask.execute();
 
-    }
-    public void thread(Pure pure){
-        new Thread(new Runnable() {
-            public void run(Pure pure) {
-                for (int i = 0; i < mArtistList.size(); i++) {
-                    mArtistDAO.create(mArtistList.get(i));
-                }
-                List<Album> albumList = pure.getAlbums();
-                for (int i = 0; i < albumList.size(); i++) {
-                    mAlbumDAO.create(albumList.get(i));
-                }
-            }
-
-            @Override
-            public void run() {
-
-            }
-        }).start();
     }
 
     /**
      * this method builds listview
      */
-
     public void builtList() {
         mListView.setAdapter(new ListViewAdapter(MainActivity.this, 0, mArtistList));
         mListView.setOnItemClickListener(this);
@@ -159,11 +139,43 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         List<Artist> artistList = mArtistDAO.readAllAsc();
-        List<Album> albumList = mAlbumDAO.readAllWhere(Constants.COLUMN_ID_ARITIST, artistList.get(position).getId());
-        Intent intent = new Intent(MainActivity.this, DetailAcitivity.class).putExtra(Constants.PASS_ARTIST, artistList.get(position));
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        if(!(artistList.size() ==0)) {
+            List<Album> albumList = mAlbumDAO.readAllWhere(Constants.COLUMN_ID_ARITIST, artistList.get(position).getId());
+            Intent intent = new Intent(MainActivity.this, DetailAcitivity.class).putExtra(Constants.PASS_ARTIST, artistList.get(position));
+            startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
+    }
 
+    private class CustomAsyncTask extends AsyncTask<Pure, Integer, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Pure... pure) {
+            for (int i = 0; i < mArtistList.size(); i++) {
+                mArtistDAO.create(mArtistList.get(i));
+            }
+            for (int i = 0; i < mAlbums.size(); i++) {
+                mAlbumDAO.create(mAlbums.get(i));
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            mProgress.show();
+            mProgress.setCancelable(false);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            mProgress.cancel();
+            Toast.makeText(MainActivity.this, R.string.save_data,Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected void onCancelled() {
+            mProgress.cancel();
+        }
     }
 
 }

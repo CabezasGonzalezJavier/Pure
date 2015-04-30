@@ -3,6 +3,7 @@ package com.thedeveloperworldisyours.pureconnect.Acitvites;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,7 +40,7 @@ public class DetailAcitivity extends ActionBarActivity {
 
         name.setText(artist.getName());
         genres.setText(artist.getGenres());
-        description.setText(artist.getDescription());
+        description.setText(Html.fromHtml(artist.getDescription()));
         Picasso.with(DetailAcitivity.this).load(artist.getPicture()).transform(new CircleTransform()).into(image);
         listView.setAdapter(new ListViewAlbumsAdapter(DetailAcitivity.this, 0, albumList));
     }
