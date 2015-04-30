@@ -9,6 +9,7 @@ public class Constants {
     public static final String DATABASE_NAME = "pure.sqlite";
 
     public static final String COLUMN_ID_ARITIST = "artistId";
+    public static final String FONT_PATH = "font/aller_bdl.ttf";
 
 
 

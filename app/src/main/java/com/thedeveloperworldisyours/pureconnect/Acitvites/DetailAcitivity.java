@@ -45,6 +45,10 @@ public class DetailAcitivity extends ActionBarActivity {
         Picasso.with(DetailAcitivity.this).load(artist.getPicture()).transform(new CircleTransform()).into(image);
         listView.setAdapter(new ListViewAlbumsAdapter(DetailAcitivity.this, 0, albumList));
     }
+
+    /**
+     * this method was created for animation between activities
+     */
     public void cameback()
     {
         finish();

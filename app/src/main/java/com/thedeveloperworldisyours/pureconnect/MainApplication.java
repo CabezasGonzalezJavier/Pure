@@ -30,10 +30,13 @@ public class MainApplication extends Application {
         public static Typeface PENCIL;
     }
 
+    /**
+     * This method create font from asset
+     */
     private void initializeTypefaces()
     {
 
-        Fonts.PENCIL = Typeface.createFromAsset(getAssets(), "font/aller_bdl.ttf");
+        Fonts.PENCIL = Typeface.createFromAsset(getAssets(), Constants.FONT_PATH);
     }
 
 }

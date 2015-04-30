@@ -10,6 +10,12 @@ import android.net.NetworkInfo;
  */
 public class Utils {
 
+    /**
+     * this method check internet
+     * @param activity
+     * @return
+     */
+
     public static boolean isOnline(Activity activity) {
         ConnectivityManager cm =
                 (ConnectivityManager) activity.getSystemService(Context.CONNECTIVITY_SERVICE);
